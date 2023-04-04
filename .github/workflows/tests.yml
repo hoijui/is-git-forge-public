@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2023 Robin Vobruba <hoijui.quaero@gmail.com>
+# SPDX-License-Identifier: CC0-1.0
+
+name: "Unit Tests"
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # Every Monday at 1PM UTC (9AM EST)
+    - cron: "0 13 * * 1"
+
+jobs:
+  build:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Setup BATS (BASH Unit testing framework)
+        uses: mig4/setup-bats@v1
+        with:
+          bats-version: 1.9.0
+
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Test
+        run: run/test
